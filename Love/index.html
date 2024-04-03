@@ -26,6 +26,7 @@
 			width: 100%;
 			height: 100%;
 		}
+
 		.tham {
 			position: absolute;
 			width: 100%;
@@ -33,11 +34,12 @@
 		}
 	</style>
 </head>
+
 <body>
-	<audio controls="" hidden="">
-		<source src="audio" type="audio/mpeg">
+	<audio id="audioPlayer" controls="" hidden="" loop="">
+		<source src="I_like_you_the_most.mp3" type="audio/mp3">
 	</audio>
-	<div class="tuyen">
+	<div class="tuyen" id="playButton">
 		<canvas id="pinkboard"></canvas>
 		<div class="tham">
 			<div class="box">
@@ -61,22 +63,22 @@
 		</div>
 	</div>
 	<script>
+		var audioPlayer = document.getElementById("audioPlayer");
+
 		/*
 	   * Settings Love
 	   */
 		var settings = {
 			particles: {
-				length: 500, // maximum amount of particles
+				length: 800, // maximum amount of particles
 				duration: 2, // particle duration in sec
-				velocity: 100, // particle velocity in pixels/sec
-				effect: -0.75, // play with this for a nice effect
-				size: 30, // particle size in pixels
+				velocity: 120, // particle velocity in pixels/sec
+				effect: -0.6, // play with this for a nice effect
+				size: 35, // particle size in pixels
 			},
 		};
 
-		/*
-		 * RequestAnimationFrame polyfill by Erik M�ller
-		 */
+
 		(function () { var b = 0; var c = ["ms", "moz", "webkit", "o"]; for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
 
 		/*
@@ -249,7 +251,7 @@
 				}
 				context.closePath();
 				// create the fill
-				context.fillStyle = '#ea80b0';
+				context.fillStyle = '#FF0000';
 				context.fill();
 				// create the image
 				var image = new Image();
@@ -296,6 +298,58 @@
 				render();
 			}, 10);
 		})(document.getElementById('pinkboard'));
+
+		//Change Image
+		document.addEventListener("DOMContentLoaded", function () {
+			var images = ['01.png', '02.png', '03.png', '04.png', '05.png', '06.png', '07.png', '08.png', '09.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png'];
+			var minboxLi1 = document.querySelector('.minbox li:nth-child(1)');
+			var minboxLi2 = document.querySelector('.minbox li:nth-child(2)');
+			var minboxLi3 = document.querySelector('.minbox li:nth-child(3)');
+			var minboxLi4 = document.querySelector('.minbox li:nth-child(4)');
+			var minboxLi5 = document.querySelector('.minbox li:nth-child(5)');
+			var minboxLi6 = document.querySelector('.minbox li:nth-child(6)');
+
+			var maxboxLi1 = document.querySelector('.maxbox li:nth-child(1)');
+			var maxboxLi2 = document.querySelector('.maxbox li:nth-child(2)');
+			var maxboxLi3 = document.querySelector('.maxbox li:nth-child(3)');
+			var maxboxLi4 = document.querySelector('.maxbox li:nth-child(4)');
+			var maxboxLi5 = document.querySelector('.maxbox li:nth-child(5)');
+			var maxboxLi6 = document.querySelector('.maxbox li:nth-child(6)');
+
+			function ChangeImageMin() {
+				var randomIndex = Math.floor(Math.random() * images.length);
+				minboxLi1.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				minboxLi2.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				minboxLi3.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				minboxLi4.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				minboxLi5.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				minboxLi6.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+			}
+			function ChangeImageMax() {
+				var randomIndex = Math.floor(Math.random() * images.length);
+				maxboxLi1.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				maxboxLi2.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				maxboxLi3.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				maxboxLi4.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				maxboxLi5.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+				maxboxLi6.style.backgroundImage = 'url("./images/' + images[randomIndex] + '")';
+			}
+
+			function startAnimation() {
+				setInterval(ChangeImageMin, 8000);
+				setInterval(ChangeImageMax, 3000);
+			}
+
+			startAnimation();
+		});
+
+		var playButton = document.getElementById("playButton");
+		playButton.addEventListener("click", function() {
+            audioPlayer.play();
+        });
+		document.addEventListener("touchstart", function() {
+            audioPlayer.play();
+        });
 	</script>
 </body>
 
